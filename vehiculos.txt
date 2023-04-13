@@ -1,0 +1,12 @@
+Si desea añadir más elementos en vehiculos tome esto como referencia
+
+],
+"Ford" : [
+    ["Fusion", 60, "Disponible"],
+    ["Escape", 80, "Disponible"]
+],
+"Chevrolet" : [
+    ["Spark", 30, "Disponible"],
+    ["Cruze", 50, "Disponible"],
+    ["Malibu", 60, "Disponible"]
+
