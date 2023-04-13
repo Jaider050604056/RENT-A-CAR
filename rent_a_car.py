@@ -1,8 +1,8 @@
 import os, random
 
-def menu(vehiculos,clientes,dia,plazodias,rangodinero):
+def menu(vehiculos,clientes,plazo_dias,rango_dinero,fecha,contador_cliente):
+    print(f"Fecha de hoy: {fecha}"); print("")
     print("Bienvenido a RENT-A-CAR"); print("")
-    print(f"Día #{dia}"); print("")
     print("1. Atender clientes")
     print("2. Añadir vehiculo al catalogo")
     print("3. Eliminar vehiculo del catalogo")
@@ -14,7 +14,7 @@ def menu(vehiculos,clientes,dia,plazodias,rangodinero):
     opcion=int(input("Escribe un numero para continuar: "))
     if opcion == 1:
         os.system("cls"); print("*"*60); print("")
-        cliente(vehiculos,clientes,plazodias,rangodinero,dia)
+        cliente(vehiculos,clientes,plazo_dias,rango_dinero,fecha,contador_cliente)
     elif opcion == 2:
         os.system("cls"); print("*"*60); print("")
         print("Añadir vehiculo al catalogo"); print("")
@@ -42,11 +42,11 @@ def menu(vehiculos,clientes,dia,plazodias,rangodinero):
                 print("-"*60)
             print(""); input("Pulsa enter para continuar ")
             os.system("cls")
-            menu(vehiculos,clientes,dia,plazodias,rangodinero)
+            menu(vehiculos,clientes,plazo_dias,rango_dinero,fecha,contador_cliente)
         else: 
             os.system("cls")
             print("Erorr, intentalo de nuevo"); print("")
-            menu(vehiculos,clientes,dia,plazodias,rangodinero)
+            menu(vehiculos,clientes,plazo_dias,rango_dinero,fecha,contador_cliente)
     elif opcion == 3:
         os.system("cls"); print("*"*60); print("")
         print("Eliminar vehiculo del catalogo"); print("")
@@ -65,28 +65,23 @@ def menu(vehiculos,clientes,dia,plazodias,rangodinero):
                     contador = contador + 1
                     print("{:<20}${:<19}{:<20}".format(*vehiculos[marcas[i]][j]))
                 print("-"*60); print("")
-            marca = input("Escribe la marca del modelo que deseas eliminar: ")
-            if not isinstance(marca, int):
-                del vehiculos[marca]
-                os.system("cls")
-                print("Vehiculo(s) eliminado(s) del catalogo"); print("")
-                marcas = list(vehiculos.keys())
-                contador = 0
-                for i in range(len(marcas)):
-                    print(" "*15,f"{i+1}).","Marca:",marcas[i]); print("-"*60)
-                    print("{:<20}{:<20}{:<20}".format("Modelo", "Precio por día", "Disponibilidad"))
-                    print("-"*60)
-                    for j in range(len(vehiculos[marcas[i]])):
-                        contador = contador + 1
-                        print("{:<20}${:<19}{:<20}".format(*vehiculos[marcas[i]][j]))
-                    print("-"*60)
-                print(""); input("Pulsa enter para continuar ")
-                os.system("cls")
-                menu(vehiculos,clientes,dia,plazodias,rangodinero)
-            else: 
-                os.system("cls")
-                print("Erorr, intentalo de nuevo"); print("")
-                menu(vehiculos,clientes,dia,plazodias,rangodinero)
+            marca = int(input("Escribe la marca del modelo que deseas eliminar: "))
+            del vehiculos[marcas[marca-1]]
+            os.system("cls")
+            print("Vehiculo(s) eliminado(s) del catalogo"); print("")
+            marcas = list(vehiculos.keys())
+            contador = 0
+            for i in range(len(marcas)):
+                print(" "*15,f"{i+1}).","Marca:",marcas[i]); print("-"*60)
+                print("{:<20}{:<20}{:<20}".format("Modelo", "Precio por día", "Disponibilidad"))
+                print("-"*60)
+                for j in range(len(vehiculos[marcas[i]])):
+                    contador = contador + 1
+                    print("{:<20}${:<19}{:<20}".format(*vehiculos[marcas[i]][j]))
+                print("-"*60)
+            print(""); input("Pulsa enter para continuar ")
+            os.system("cls")
+            menu(vehiculos,clientes,plazo_dias,rango_dinero,fecha,contador_cliente)
         elif opcion == 2: 
             os.system("cls")
             contador = 0
@@ -130,45 +125,45 @@ def menu(vehiculos,clientes,dia,plazodias,rangodinero):
                 print("-"*60)
             print(""); input("Pulsa enter para continuar ")
             os.system("cls")
-            menu(vehiculos,clientes,dia,plazodias,rangodinero)
+            menu(vehiculos,clientes,plazo_dias,rango_dinero,fecha,contador_cliente)
         else: 
             os.system("cls")
             print("Erorr, intentalo de nuevo"); print("")
-            menu(vehiculos,clientes,dia,plazodias,rangodinero)
+            menu(vehiculos,clientes,plazo_dias,rango_dinero,fecha,contador_cliente)
     elif opcion == 4:
         os.system("cls"); print("*"*60); print("")
         print("Cambiar precios minimo/maximo del RENT-A-CAR"); print("")
-        print(f"Precio minimo del RENT-A-CAR: {rangodinero[0]}$")
-        print(f"Precio maximo del RENT-A-CAR: {rangodinero[1]}$"); print("")
+        print(f"Precio minimo del RENT-A-CAR: {rango_dinero[0]}$")
+        print(f"Precio maximo del RENT-A-CAR: {rango_dinero[1]}$"); print("")
         minimo=int(input("Escribe el nuevo precio minimo: "))
         maximo=int(input("Escribe el nuevo precio maximo: "))
-        rangodinero.clear()
-        rangodinero.append(minimo)
-        rangodinero.append(maximo)
+        rango_dinero.clear()
+        rango_dinero.append(minimo)
+        rango_dinero.append(maximo)
         os.system("cls")
         print("Los precios fueron modificados con exito"); print("")
-        print(f"Precio minimo del RENT-A-CAR: {rangodinero[0]}$")
-        print(f"Precio maximo del RENT-A-CAR: {rangodinero[1]}$")
+        print(f"Precio minimo del RENT-A-CAR: {rango_dinero[0]}$")
+        print(f"Precio maximo del RENT-A-CAR: {rango_dinero[1]}$")
         print(""); input("Pulsa enter para continuar ")
         os.system("cls")
-        menu(vehiculos,clientes,dia,plazodias,rangodinero)
+        menu(vehiculos,clientes,plazo_dias,rango_dinero,fecha,contador_cliente)
     elif opcion == 5:
         os.system("cls"); print("*"*60); print("")
         print("Cambiar plazo minimo/maximo de días"); print("")
-        print(f"El día minimo para alquilar en el RENT-A-CAR es: {plazodias[0]}")
-        print(f"El día maximo para alquilar en el RENT-A-CAR es: {plazodias[1]}"); print("")
+        print(f"El día minimo para alquilar en el RENT-A-CAR es: {plazo_dias[0]}")
+        print(f"El día maximo para alquilar en el RENT-A-CAR es: {plazo_dias[1]}"); print("")
         minimo=int(input("Escribe el nuevo día minimo para alquilar: "))
         maximo=int(input("Escribe el nuevo día maximo para alquilar: "))
-        plazodias.clear()
-        plazodias.append(minimo)
-        plazodias.append(maximo)
+        plazo_dias.clear()
+        plazo_dias.append(minimo)
+        plazo_dias.append(maximo)
         os.system("cls")
         print("Los plazos fueron modificados con exito"); print("")
-        print(f"El día minimo para alquilar en el RENT-A-CAR es: {plazodias[0]}")
-        print(f"El día maximo para alquilar en el RENT-A-CAR es: {plazodias[1]}")
+        print(f"El día minimo para alquilar en el RENT-A-CAR es: {plazo_dias[0]}")
+        print(f"El día maximo para alquilar en el RENT-A-CAR es: {plazo_dias[1]}")
         print(""); input("Pulsa enter para continuar ")
         os.system("cls")
-        menu(vehiculos,clientes,dia,plazodias,rangodinero)
+        menu(vehiculos,clientes,plazo_dias,rango_dinero,fecha,contador_cliente)
     elif opcion == 6:
         pass
     elif opcion == 7:
@@ -183,7 +178,7 @@ def menu(vehiculos,clientes,dia,plazodias,rangodinero):
             print("No hay ningún cliente en alquiler")
         print(""); input("Pulsa enter para continuar ")
         os.system("cls")
-        menu(vehiculos,clientes,dia,plazodias,rangodinero)
+        menu(vehiculos,clientes,plazo_dias,rango_dinero,fecha,contador_cliente)
     elif opcion == 8:
         os.system("cls")
         print("Adios"); print("")
@@ -191,34 +186,34 @@ def menu(vehiculos,clientes,dia,plazodias,rangodinero):
     else:
         os.system("cls")
         print("Erorr, intentalo de nuevo"); print("")
-        menu(vehiculos,clientes,dia,plazodias,rangodinero)
+        menu(vehiculos,clientes,plazo_dias,rango_dinero,fecha,contador_cliente)
     return
 
-def cliente(vehiculos,clientes,plazodias,rangodinero,dia):
+def cliente(vehiculos,clientes,plazo_dias,rango_dinero,fecha,contador_cliente):
     vacio = all(modelo[2] == "No disponible" for modelos in vehiculos.values() for modelo in modelos)
-    dias = random.randint(plazodias[0],plazodias[1])
-    dinero = dias*(random.randint(rangodinero[0], rangodinero[1]))
+    dias = random.randint(plazo_dias[0],plazo_dias[1])
+    dinero = dias*(random.randint(rango_dinero[0], rango_dinero[1]))
     os.system("cls"); print("*"*60); print("")
     if vacio:
         print("Ningún vehiculo se encuentra disponible")
         print("Espere unos días o añade más vehiculos para atender a más clientes")
         print(""); input("Pulsa enter para continuar ")
         os.system("cls"); print("*"*60); print("")
-        menu(vehiculos,clientes,dia,plazodias,rangodinero)
+        menu(vehiculos,clientes,plazo_dias,rango_dinero,fecha,contador_cliente)
     minimo = min(marca[1] for i in vehiculos.values() for marca in i if marca[2] == "Disponible")
     if (round(dinero/dias)) < minimo:
-        cliente(vehiculos,clientes,plazodias,rangodinero,dia)
+        cliente(vehiculos,clientes,plazo_dias,rango_dinero,fecha,contador_cliente)
     else:
-        print("-"*12,"Un cliente desea alquilar un coche","-"*12); print("")
-        print(f"El cliente posee {dinero}$ en efectivo")
+        print("-"*12,f"Un cliente desea alquilar un coche","-"*12); print("")
+        print(f"El cliente #{contador_cliente} posee {dinero}$ en efectivo")
         print(f"Dinero dividido en días: {round(dinero/dias)}$")
         print("Cantidad de días deseados:", dias); print("")
         print("-"*6,"Elije un coche que se ajuste a sus comodidades","-"*6); print("")
-        clientes[f"Cliente del día #{dia}"] = {"Días" : dias, "Dinero total" : dinero, "Dinero por días" : round(dinero/dias)}
-        listadovehiculos(vehiculos,clientes,plazodias,rangodinero,dia)
+        clientes[f"Cliente #{contador_cliente} del día {fecha}"] = {"Días" : dias, "Dinero total" : dinero, "Dinero por días" : round(dinero/dias)}
+        listadovehiculos(vehiculos,clientes,plazo_dias,rango_dinero,fecha,contador_cliente)
     return
 
-def listadovehiculos(vehiculos,clientes,plazodias,rangodinero,dia):
+def listadovehiculos(vehiculos,clientes,plazo_dias,rango_dinero,fecha,contador_cliente):
     marcas = list(vehiculos.keys())
     contador = 0
     for i in range(len(marcas)):
@@ -244,24 +239,39 @@ def listadovehiculos(vehiculos,clientes,plazodias,rangodinero,dia):
     print("")
     index_modelos = int(input("Escribe un número del modelo para seleccionar el coche adecuado: "))
     os.system("cls"); print("*"*60); print("")
-    if (vehiculos[marcas[index_marcas-1]][index_modelos-1][2]) == "Disponible" and (vehiculos[marcas[index_marcas-1]][index_modelos-1][1]) <= clientes[f"Cliente del día #{dia}"] ["Dinero por días"]:
+    if (vehiculos[marcas[index_marcas-1]][index_modelos-1][2]) == "Disponible" and (vehiculos[marcas[index_marcas-1]][index_modelos-1][1]) <= clientes[f"Cliente #{contador_cliente} del día {fecha}"] ["Dinero por días"]:
         print("-"*25,"Factura","-"*26); print("")
-        print(f"Cliente del día #{dia}"); print("")
+        print(f"Cliente #{contador_cliente} del día {fecha}"); print("")
         print("Vehiculo alquilado:", marcas[index_marcas-1], "-", vehiculos[marcas[index_marcas-1]][index_modelos-1][0])
         print(f"Coste por día: {vehiculos[marcas[index_marcas-1]][index_modelos-1][1]}$")
-        print("Días de alquiler:",clientes[f"Cliente del día #{dia}"]["Días"]); print("")
-        print("Dinero recibido:", clientes[f"Cliente del día #{dia}"]["Dinero total"],"$")
-        print("Dinero entregado:",clientes[f"Cliente del día #{dia}"]["Dinero total"] - (clientes[f"Cliente del día #{dia}"]["Días"] * vehiculos[marcas[index_marcas-1]][index_modelos-1][1]),"$"); print("")
-        print("Dinero total:", clientes[f"Cliente del día #{dia}"]["Días"] * vehiculos[marcas[index_marcas-1]][index_modelos-1][1],"$")
-        del clientes[f"Cliente del día #{dia}"] ["Dinero por días"]
-        clientes[f"Cliente del día #{dia}"].update({"Marca" : marcas[index_marcas-1], "Modelo" : vehiculos[marcas[index_marcas-1]][index_modelos-1][0], "IndexModelo" : index_modelos-1})
+        print("Días de alquiler:",clientes[f"Cliente #{contador_cliente} del día {fecha}"]["Días"]); print("")
+        print("Dinero recibido:", clientes[f"Cliente #{contador_cliente} del día {fecha}"]["Dinero total"],"$")
+        print("Dinero entregado:",clientes[f"Cliente #{contador_cliente} del día {fecha}"]["Dinero total"] - (clientes[f"Cliente #{contador_cliente} del día {fecha}"]["Días"] * vehiculos[marcas[index_marcas-1]][index_modelos-1][1]),"$"); print("")
+        print("Dinero total:", clientes[f"Cliente #{contador_cliente} del día {fecha}"]["Días"] * vehiculos[marcas[index_marcas-1]][index_modelos-1][1],"$")
+        del clientes[f"Cliente #{contador_cliente} del día {fecha}"] ["Dinero por días"]
+        clientes[f"Cliente #{contador_cliente} del día {fecha}"].update({"Marca" : marcas[index_marcas-1], "Modelo" : vehiculos[marcas[index_marcas-1]][index_modelos-1][0], "IndexModelo" : index_modelos-1})
         vehiculos[marcas[index_marcas-1]] [index_modelos-1][2] = "No disponible"
+        print(""); print("-"*60)
         print(""); print("El vehiculo",marcas[index_marcas-1], "-", vehiculos[marcas[index_marcas-1]][index_modelos-1][0], "se marcó como No disponible")
-        print(""); input("Pulsa enter para continuar ") 
+        print(""); print("-"*60)
+        print(""); opcion = int(input("Desea continuar con este día? (1.Si // 2.No): "))
+        if opcion == 1:
+            contador_cliente += 1
+            os.system("cls"); print("*"*60); print("")
+            cliente(vehiculos,clientes,plazo_dias,rango_dinero,fecha,contador_cliente)
+        elif opcion == 2:
+            contador_cliente = 1
+            pass
+        else:
+            os.system("cls"); print("*"*60); print("")
+            print("Vehiculo no disponible o fuera de precio, intentalo de nuevo")
+            print(""); input("Pulsa enter para continuar ")
+            del clientes[f"Cliente #{contador_cliente} del día {fecha}"]
+            cliente(vehiculos,clientes,plazo_dias,rango_dinero,fecha,contador_cliente)
     else: 
         os.system("cls"); print("*"*60); print("")
         print("Vehiculo no disponible o fuera de precio, intentalo de nuevo")
         print(""); input("Pulsa enter para continuar ")
-        del clientes[f"Cliente del día #{dia}"]
-        cliente(vehiculos,clientes,plazodias,rangodinero,dia)
+        del clientes[f"Cliente #{contador_cliente} del día {fecha}"]
+        cliente(vehiculos,clientes,plazo_dias,rango_dinero,fecha,contador_cliente)
     return
