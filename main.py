@@ -1,7 +1,6 @@
 import os; os.system("cls"); print("*"*60); print("")
 import datetime
 from rent_a_car import menu
-
 if __name__ == "__main__":
     plazo_dias = [1, 5]
     rango_dinero = [40, 140]

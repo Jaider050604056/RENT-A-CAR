@@ -1,5 +1,5 @@
 import os, random
-
+import datetime
 def menu(vehiculos,clientes,plazo_dias,rango_dinero,fecha,contador_cliente):
     print(f"Fecha de hoy: {fecha}"); print("")
     print("Bienvenido a RENT-A-CAR"); print("")
@@ -225,12 +225,13 @@ def menu(vehiculos,clientes,plazo_dias,rango_dinero,fecha,contador_cliente):
                 dias_clientes = list(clientes.keys())
                 if dias_clientes:
                     for i in range(len(dias_clientes)):
+                        fecha_nueva = datetime.timedelta(days=clientes[dias_clientes[i]] ["Días"]) + datetime.date.today()
                         print(dias_clientes[i]); print("")
                         print("Posee el vehiculo:", clientes[dias_clientes[i]] ["Marca"], "-", clientes[dias_clientes[i]] ["Modelo"])
-                        print("Terminará su plazo en", clientes[dias_clientes[i]] ["Días"], "día(s)"); print("")
+                        print("Terminará su plazo el", fecha_nueva, "en", clientes[dias_clientes[i]] ["Días"], "día(s)"); print("")
                 else:
-                    print("No hay ningún cliente en alquiler")
-                print(""); input("Pulsa enter para continuar ")
+                    print("No hay ningún cliente en alquiler"); print("")
+                input("Pulsa enter para continuar ")
                 os.system("cls")
                 menu(vehiculos,clientes,plazo_dias,rango_dinero,fecha,contador_cliente)
             except ValueError:
